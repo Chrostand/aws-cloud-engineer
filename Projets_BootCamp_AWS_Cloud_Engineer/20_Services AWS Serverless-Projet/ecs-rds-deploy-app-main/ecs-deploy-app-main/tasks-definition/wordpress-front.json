@@ -1,5 +1,5 @@
 {
-    "family": "wordpress-front-new",
+    "family": "wordpress-front",
     "containerDefinitions": [
         {
             "name": "wordpress-front",
@@ -13,7 +13,6 @@
                 }
             ],
             "essential": true,
-            "user": "root",
             "environment": [
                 {
                     "name": "ECS_RESERVED_MEMORY",
@@ -21,7 +20,7 @@
                 },
                 {
                     "name": "WORDPRESS_DB_HOST",
-                    "value": "rds-proxy.proxy-cdgjwz3kpgym.eu-west-1.rds.amazonaws.com"
+                    "value": "wordpress-prod-rds-proxy.proxy-c9cykak0m4vi.eu-west-1.rds.amazonaws.com"
                 },
                 {
                     "name": "WORDPRESS_DB_NAME",
@@ -35,18 +34,18 @@
             "mountPoints": [
                 {
                     "sourceVolume": "efs-wordpress-volume",
-                    "containerPath": "/bitnami/wordpress"
+                    "containerPath": "/var/www/html"
                 }
             ],
             "volumesFrom": [],
             "secrets": [
                 {
                     "name": "WORDPRESS_DB_USER",
-                    "valueFrom": "arn:aws:secretsmanager:eu-west-1:925037323203:secret:rds!db-b39ec6b9-2094-48de-a919-86276ace82b2-8bTN29:username::"
+                    "valueFrom": "arn:aws:secretsmanager:eu-west-1:010928207751:secret:rds!db-4d4bd980-63ff-44ea-a5ca-e8bce6619a12-vMOIYp:username::"
                 },
                 {
                     "name": "WORDPRESS_DB_PASSWORD",
-                    "valueFrom": "arn:aws:secretsmanager:eu-west-1:925037323203:secret:rds!db-b39ec6b9-2094-48de-a919-86276ace82b2-8bTN29:password::"
+                    "valueFrom": "arn:aws:secretsmanager:eu-west-1:010928207751:secret:rds!db-4d4bd980-63ff-44ea-a5ca-e8bce6619a12-vMOIYp:password::"
                 }
             ],
             "logConfiguration": {
@@ -61,17 +60,17 @@
             "systemControls": []
         }
     ],
-    "executionRoleArn": "arn:aws:iam::925037323203:role/wordpress-prod-role",
+    "executionRoleArn": "arn:aws:iam::010928207751:role/wordpress-prod-role",
     "networkMode": "awsvpc",
     "volumes": [
         {
             "name": "efs-wordpress-volume",
             "efsVolumeConfiguration": {
-                "fileSystemId": "fs-03f0656d78cc10b09",
+                "fileSystemId": "fs-084915faf89311d12",
                 "rootDirectory": "/",
                 "transitEncryption": "ENABLED",
                 "authorizationConfig": {
-                    "accessPointId": "fsap-01be34f4edde30db2",
+                    "accessPointId": "fsap-066d300566c926f38",
                     "iam": "DISABLED"
                 }
             }
